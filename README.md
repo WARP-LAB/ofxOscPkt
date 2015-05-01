@@ -9,6 +9,8 @@ http://gruntthepeon.free.fr/oscpkt/
 
 ofxOsc and Cinder OSC relies on oscpack lib. When sending OSC messages to node-osc from Cinder, everything works, but those sent from oF go are lost somewhere. Not saying that node-osc isn't to blame. Anyways, insted of trying to find and solve the issue, Julien lib with two headers is great alternative.
 
+_another crucial thing that oscpkt has is incoming bundle parsing. imagine sending messages from one computer to another that nature is to describe features/states of app per one run loop/frame. i bundle them so all the messages that describes one frame are together. on every receiving computer loop i just take the last bundle received (there are cases you need all of them, i.e., if data is aggregating/accumultating in its nature), discard older buffers. in such way one has as realtime as possible data flow plus one is guaranteed that all the messages in the bundle correspond to the same frame. ofxOsc does not parse bundles (more corretly - just throws them into a message bowl), makes sad panda. OscPkt makes panda happy._
+
 See Juliens original examples.
 
 ```
