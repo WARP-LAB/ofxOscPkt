@@ -94,6 +94,20 @@ public:
     }
     return s;
   }
+    
+    std::string asStringIpOnly() const {
+        std::string s;
+        if (addr().sa_family) {
+            char hostname[512], servname[512];
+            int err = getnameinfo(&addr_.sa,
+                                  sizeof addr_, hostname, sizeof hostname, servname, sizeof servname, NI_NUMERICHOST|NI_NUMERICSERV);
+            if (err == 0) {
+                s = hostname;
+            }
+        }
+        return s;
+    }
+    
   
   friend std::ostream &operator<<(std::ostream &os, const SockAddr &ip) {
     os << "[";
